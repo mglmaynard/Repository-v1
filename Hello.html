@@ -48,3 +48,14 @@
     function sayHello() {
       const name = document.getElementById("nameInput").value;
       const greeting = document.getElementById("greeting");
+      
+      if (name.trim() !== "") {
+        greeting.textContent = `Hello, ${name}! 👋`;
+      } else {
+        greeting.textContent = "Please enter your name.";
+      }
+    }
+  </script>
+
+</body>
+</html>
