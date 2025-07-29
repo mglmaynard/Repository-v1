@@ -1,0 +1,22 @@
+pip install gspread google-auth pandas
+
+import gspread
+from google.oauth2.service_account import Credentials
+import pandas as pd
+
+SCOPES = ['https://www.googleapis.com/auth/drive','https://www.googleapis.com/auth/spreadsheets']
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+creds = Credentials.from_service_account_file('/content/drive/My Drive/Python/tweetybird.json', scopes=SCOPES)
+
+client = gspread.authorize(creds)
+
+sheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1LrrdiEvY4baWfq7v900i7MamQgNwWWWyqPESOaIrxZo/edit?gid=0#gid=0').worksheet('MMWOR')
+
+record = sheet.get_all_records()
+
+df = pd.DataFrame(record)
+
+print(df.head())
