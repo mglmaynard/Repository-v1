@@ -1,0 +1,48 @@
+#HTML + CSS + Javascript
+#HTML doesn’t "do" things like programming languages do—instead, it defines the structure and meaning of web content
+#CSS styles content
+#Javascript makes it interactive
+#Code starts below
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Page</title>
+
+  <!-- ✅ CSS: Styling the text and button -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #myText {
+      font-size: 24px;
+      color: black;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ✅ HTML: The page structure -->
+  <h1 id="myText">Click the button to change my color!</h1>
+  <button onclick="changeColor()">Change Color</button>
+
+  <!-- ✅ JavaScript: Adds interaction -->
+  <script>
+    function changeColor() {
+      const text = document.getElementById("myText");
+      text.style.color = "blue";
+    }
+  </script>
+
+</body>
+</html>
