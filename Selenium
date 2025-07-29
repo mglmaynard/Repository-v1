@@ -1,0 +1,80 @@
+!pip install selenium
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import sys
+
+def test_metabase_login(metabase_url, username, password):
+    driver = webdriver.Chrome()
+    test_passed = False
+    session_id = None
+
+    try:
+        print("\n=== Starting Metabase Login Test ===")
+
+        # 1. Test page loading
+        driver.get(metabase_url)
+        print("✓ Metabase URL loaded")
+
+        # 2. Test SSO page detection
+        try:
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID, "username")))
+            print("✓ SSO login page detected")
+        except:
+            print("× SSO login page not detected")
+            return False, None
+
+        # 3. Test credential entry
+        driver.find_element(By.ID, "username").send_keys(username)
+        driver.find_element(By.ID, "password").send_keys(password)
+        print("✓ Credentials entered")
+
+        # 4. Test form submission
+        submit_button = driver.find_element(By.ID, "submit")
+        submit_button.click()
+        print("✓ Login form submitted")
+
+        # 5. Test successful login
+        try:
+            WebDriverWait(driver, 20).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "Dashboard")))
+            print("✓ Dashboard loaded successfully")
+            test_passed = True
+        except:
+            print("× Failed to load dashboard")
+
+        # 6. Test session cookie
+        session_cookie = driver.get_cookie("metabase.SESSION")
+        if session_cookie:
+            session_id = session_cookie['value']
+            print(f"✓ Session ID obtained (first 10 chars): {session_id[:10]}...")
+        else:
+            print("× No session cookie found")
+
+        return test_passed, session_id
+
+    except Exception as e:
+        print(f"! Test failed with exception: {str(e)}")
+        return False, None
+    finally:
+        driver.quit()
+        print("=== Test completed ===")
+
+# Run the test
+if __name__ == "__main__":
+    MB_URL = "https://metabase.ninjavan.co/auth/login"
+    USERNAME = "input_username"
+    PASSWORD = "input_pw"
+
+    success, session_id = test_metabase_login(MB_URL, USERNAME, PASSWORD)
+
+    if success:
+        print("\nTEST RESULT: PASSED")
+        print(f"Session ID: {session_id[:15]}...")
+        sys.exit(0)
+    else:
+        print("\nTEST RESULT: FAILED")
+        sys.exit(1)
