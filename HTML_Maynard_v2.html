@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maynard Alberto G. Lim</title>
+
+  <!-- ✅ CSS: Styling -->
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f8ff;
+      color: #333;
+      transition: background-color 0.5s ease;
+    }
+
+    h1 {
+      margin-top: 60px;
+      font-size: 36px;
+      color: #2c3e50;
+    }
+
+    #greeting {
+      margin-top: 20px;
+      font-size: 24px;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button {
+      margin-top: 40px;
+      padding: 12px 25px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    footer {
+      margin-top: 80px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ HTML Content -->
+  <h1>Maynard Alberto G. Lim</h1>
+  <div id="greeting">Welcome to my fun and interactive page! 🎈</div>
+
+  <button onclick="changeBackground()">Change Background Color</button>
+
+  <footer>Created by Maynard | © 2025</footer>
+
+  <!-- ✅ JavaScript: Interactivity -->
+  <script>
+    const colors = ['#f0f8ff', '#ffe4e1', '#e0ffff', '#fafad2', '#d1c4e9', '#c8e6c9', '#ffecb3'];
+
+    function changeBackground() {
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      document.body.style.backgroundColor = randomColor;
+    }
+  </script>
+
+</body>
+</html>
